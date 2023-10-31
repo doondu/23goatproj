@@ -93,8 +93,10 @@ if __name__ == '__main__':
     #Make file with datetime and open
     now = str(datetime.datetime.now())
     fileN = now[:10]+"_bmp_"+now[11:21]
+    fileS = now[:10]+"_servoLog_"+now[11:21]
     try:
        f = open(fileN, 'w')
+       s = open(fileS, 'w')
     except:
        print("Failed to open file, bmp")
 
@@ -131,6 +133,8 @@ if __name__ == '__main__':
                     time.sleep(0.5)
                     pwm.ChangeDutyCycle(2.5)
                     time.sleep(0.5)
+                    #Write a servo log 
+                    s.write(f"{datetime.datetime.now()} Servo open log: {cali_altitude} m\n")
                     # ****************************************
                 except KeyboardInterrupt:
                     GPIO.cleanup()
